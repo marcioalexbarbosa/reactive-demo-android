@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DemoReactive</string>
+    <string name="thumbnail">thumbnail</string>
+    <string name="sync">sync</string>
+</resources>
