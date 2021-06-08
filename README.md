@@ -8,3 +8,7 @@ A reactive app using Retrofit and Reactor
 ## Screenshot
 
 ![reative demo app](https://github.com/marcioalexbarbosa/reactive-demo-android/blob/main/demo_reative.png "Reactive Demo App")
+
+## TODO
+
+[ ] use AsyncTask to avoid doing too much work on main thread
