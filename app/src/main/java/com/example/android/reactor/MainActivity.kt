@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         ApiService.api().stream()
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
-            .flatMap { responseBody -> getObservableFromList(responseBody.source()) }
+            .flatMap { responseBody -> getObservableFromSource(responseBody.source()) }
             .doOnNext {
                 Log.i(TAG, "doOnNext $it")
             }
@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
             })
     }
 
-    private fun getObservableFromList(source: BufferedSource): Observable<String> =
+    private fun getObservableFromSource(source: BufferedSource): Observable<String> =
         Observable.create<String> { subscriber ->
             try {
                 while (!source.exhausted()) {
