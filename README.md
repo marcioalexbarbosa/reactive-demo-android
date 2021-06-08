@@ -11,4 +11,4 @@ A reactive app using Retrofit and Reactor
 
 ## TODO
 
-[ ] use AsyncTask to avoid doing too much work on main thread
+- [ ] use AsyncTask to avoid doing too much work on main thread
