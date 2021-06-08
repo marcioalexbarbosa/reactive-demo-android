@@ -45,18 +45,17 @@ class MainActivity : AppCompatActivity() {
         dummyList: ArrayList<Dummy>,
         adapter: DummyAdapter
     ) {
+        dummyList.clear()
         ApiService.api().stream()
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .flatMap { responseBody -> getObservableFromList(responseBody.source()) }
             .doOnNext {
-                Log.i(TAG, it)
+                Log.i(TAG, "doOnNext $it")
             }
             .subscribe({ t ->
-                Log.i(TAG, "onNext t=$t")
-                dummyList.clear()
-                dummyList.addAll(Gson().fromJson(t, Array<Dummy>::class.java).asList())
-                Log.i(TAG, "dummyList=$dummyList")
+                Log.i(TAG, "subscribe t=$t")
+                dummyList.add(Gson().fromJson(t, Dummy::class.java))
                 this@MainActivity.runOnUiThread {
                     adapter.updateDataSource()
                 }
@@ -71,7 +70,9 @@ class MainActivity : AppCompatActivity() {
         Observable.create<String> { subscriber ->
             try {
                 while (!source.exhausted()) {
-                    subscriber.onNext(source.readUtf8Line()!!)
+                    val readUtf8Line = source.readUtf8Line()!!
+                    Log.i(TAG, "source on next=$readUtf8Line")
+                    subscriber.onNext(readUtf8Line)
                 }
                 subscriber.onComplete()
             } catch (e: IOException) {
